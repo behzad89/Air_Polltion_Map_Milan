@@ -1,0 +1,13 @@
+numpy
+geopandas
+shapely
+pandas
+xarray
+rioxarray
+rasterio
+netcdf4
+requests
+scikit-learn
+xlsxwriter
+coloredlogs
+-e .
