@@ -9,5 +9,4 @@ netcdf4
 requests
 scikit-learn
 xlsxwriter
-coloredlogs
 -e .
