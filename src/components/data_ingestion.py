@@ -20,7 +20,7 @@ class DataIngestion:
     def initiate_data_ingestion(self) -> str:
         logging.info("Enter the data ingestion method or component")
         try:
-            df = pd.read_csv("/scicore/home/roeoesli/valipo0000/pochas_result/pollen/04_with_Outliers_pollen_feat_2000_2019.csv")
+            df = pd.read_csv("../../pochas_result/pollen/04_with_Outliers_pollen_feat_2000_2019.csv")
             logging.info("Read the datasets as dataframe")
 
             # make a directory to save the file
