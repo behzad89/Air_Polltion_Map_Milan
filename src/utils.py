@@ -1,4 +1,7 @@
 import pandas as pd
+import os,sys
+from src.exception import CustomException
+import dill
 
 def CustomTrainTestSplit(pollen_data: pd.DataFrame, test_size: float=0.2) -> pd.DataFrame:
     """
@@ -35,3 +38,14 @@ def CustomTrainTestSplit(pollen_data: pd.DataFrame, test_size: float=0.2) -> pd.
     # You can obtain the training data by excluding the test data
     train_data = pollen_data.drop(index=test_data.index)
     return train_data, test_data
+
+
+def save_object(file_path, obj):
+    try:
+        dir_path = os.path.dirname(file_path)
+        os.makedirs(dir_path, exist_ok=True)
+        with open(file_path, "wb") as file_obj:
+            dill.dump(obj, file_obj)
+
+    except Exception as e:
+        raise CustomException(e, sys)

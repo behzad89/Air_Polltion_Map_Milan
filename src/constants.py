@@ -51,8 +51,8 @@ BIRCH_FTS =[
 ]
 
 
-pollen = {"grass": {"type": "Grasses", "season_start": 4, "season_end": 9, "stats":['datetime', 'Grasses_avg_daily','Grasses_std_daily'], "features":GRASS_FTS}, 
-          "birch": {"type": "Birch", "season_start": 3, "season_end": 5, "stats":['datetime', 'Birch_avg_daily','Birch_std_daily'],"features":BIRCH_FTS}}
+pollen = {"grass": {"type": "Grasses", "season_start": 4, "season_end": 9, "stats":['Grasses_avg_daily','Grasses_std_daily'], "features":GRASS_FTS}, 
+          "birch": {"type": "Birch", "season_start": 3, "season_end": 5, "stats":['Birch_avg_daily','Birch_std_daily'],"features":BIRCH_FTS}}
 
 
 
