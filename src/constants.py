@@ -55,7 +55,7 @@ pollen = {"grass": {"type": "Grasses", "season_start": 4, "season_end": 9, "stat
           "birch": {"type": "Birch", "season_start": 3, "season_end": 5, "stats":['Birch_avg_daily','Birch_std_daily'],"features":BIRCH_FTS}}
 
 
-
+column_to_drop = ["Name_stati", "PollenSeason"]
 
 
 

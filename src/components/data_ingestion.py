@@ -22,7 +22,7 @@ class DataIngestion():
         self.pollen_type = pollen_type
 
     def initiate_data_ingestion(self) -> str:
-        logging.info("Enter the data ingestion method or component")
+        logging.info("Start the data ingestion")
         try:
             df = pd.read_csv("../../pochas_result/pollen/04_with_Outliers_pollen_feat_2000_2019.csv", parse_dates=["datetime"], usecols=cns.pollen[self.pollen_type]["features"]) # Since there was some personal info, I decided not use exact path
             logging.info("Read the datasets as dataframe")
@@ -38,6 +38,10 @@ class DataIngestion():
             logging.info(f"Train-test split initiated for {self.pollen_type} pollen")
             train_set, test_set = CustomTrainTestSplit(df,test_size=0.2)
 
+            train_set.drop(cns.column_to_drop, axis=1, inplace=True)
+            test_set.drop(cns.column_to_drop, axis=1, inplace=True)
+            logging.info(f"Droped extra columns")
+
             train_set.to_csv(self.ingestion_config.train_data_path, index=False, header=True)
             test_set.to_csv(self.ingestion_config.test_data_path, index=False, header=True)
             logging.info(f"Ingestion of the data is completed for {self.pollen_type}")
@@ -46,13 +50,11 @@ class DataIngestion():
         except Exception as e:
             raise CustomException(e,sys)
 
-# if __name__ == "__main__":
-#     obj = DataIngestion("grass")
-#     train_data, test_data = obj.initiate_data_ingestion()
+if __name__ == "__main__":
+     obj = DataIngestion("birch")
+     train_data, test_data = obj.initiate_data_ingestion()
 
-#     data_transformation = DataTransformation("grass")
-#     data_transformation.data_treansformation(train_data,test_data)
-
-
-
+     data_transformation = DataTransformation("birch")
+     a,b,c = data_transformation.data_treansformation(train_data,test_data)
+     print(a.shape)
 
