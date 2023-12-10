@@ -4,6 +4,7 @@ from feature_engine.datetime import DatetimeFeatures
 from feature_engine.creation import CyclicalFeatures
 from sklearn.preprocessing import MinMaxScaler
 from feature_engine.wrappers import SklearnTransformerWrapper
+from feature_engine.selection import DropFeatures
 from sklearn.pipeline import Pipeline
 
 import sys,os
@@ -36,7 +37,8 @@ class DataTransformation():
                         ('cyclical', CyclicalFeatures(
                                 variables=["datetime_quarter", "datetime_week", "datetime_month", "datetime_day_of_year"],
                                 drop_original = True)),
-                        ("scaler", SklearnTransformerWrapper(MinMaxScaler(), variables = NUM_FTS))
+                        ("scaler", SklearnTransformerWrapper(MinMaxScaler(), variables = NUM_FTS)),
+                        ("dropExtraClms", DropFeatures(features_to_drop=cns.column_to_drop))
                 ])
 
             return processor

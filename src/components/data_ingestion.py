@@ -38,10 +38,6 @@ class DataIngestion():
             logging.info(f"Train-test split initiated for {self.pollen_type} pollen")
             train_set, test_set = CustomTrainTestSplit(df,test_size=0.2)
 
-            train_set.drop(cns.column_to_drop, axis=1, inplace=True)
-            test_set.drop(cns.column_to_drop, axis=1, inplace=True)
-            logging.info(f"Droped extra columns")
-
             train_set.to_csv(self.ingestion_config.train_data_path, index=False, header=True)
             test_set.to_csv(self.ingestion_config.test_data_path, index=False, header=True)
             logging.info(f"Ingestion of the data is completed for {self.pollen_type}")
