@@ -11,4 +11,5 @@ scikit-learn
 xlsxwriter
 feature-engine
 dill
+xgboost
 # -e .

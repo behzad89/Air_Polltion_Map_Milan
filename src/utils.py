@@ -1,7 +1,12 @@
 import pandas as pd
+from sklearn.metrics import r2_score
+from sklearn.feature_selection import SelectFromModel
+from sklearn.pipeline import Pipeline
 import os,sys
 from src.exception import CustomException
 import dill
+import src.constants as cns
+from sklearn.model_selection import GridSearchCV, KFold, GroupKFold, train_test_split
 
 def CustomTrainTestSplit(pollen_data: pd.DataFrame, test_size: float=0.2) -> pd.DataFrame:
     """
@@ -54,3 +59,31 @@ def save_object(file_path, obj):
 
     except Exception as e:
         raise CustomException(e, sys)
+    
+  
+
+    def evaluate_model(X_train: pd.DataFrame, y_train:pd.DataFrame,X_test:pd.DataFrame,y_test:pd.DataFrame,models:dict):
+        try:
+            report = {}
+            for i in range(len(list(models))):
+                model = list(models.values())[i]
+
+                model_pipline = Pipeline(steps=[
+                    ('feature_selection', SelectFromModel(model(random_state=42))),
+                    ('Regressor', model(random_state=42))
+                ])
+
+                grid_search = GridSearchCV(estimator=model_pipline, param_grid=cns.params[list(models.keys())[i]], 
+                                           cv=?????, scoring='neg_root_mean_squared_error',n_jobs=100)
+
+                y_train_pred = grid_search.predict(X_train)
+                y_test_pred = grid_search.predict(X_test)
+
+                train_model_score = r2_score(y_train,y_train_pred)
+                test_model_score = r2_score(y_test,y_test_pred)
+
+                report[list(models.key()[i])] = test_model_score
+            return report
+
+        except Exception as e:
+            raise CustomException(e,sys)

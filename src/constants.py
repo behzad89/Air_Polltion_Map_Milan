@@ -58,4 +58,24 @@ pollen = {"grass": {"type": "Grasses", "season_start": 4, "season_end": 9, "stat
 column_to_drop = ["Name_stati", "PollenSeason"]
 
 
+params={
+
+        "Random Forest":{
+            'Regressor__n_estimators': [150],
+            'Regressor__max_depth': [8],
+            'Regressor__max_features': ['sqrt'],
+            'Regressor__random_state': [42]
+        },
+        "XGBRegressor":{
+            'Regressor__learning_rate': [0.01, 0.1, 0.3],
+            'Regressor__n_estimators': [100],
+            'Regressor__max_depth': [1, 5, 10],
+            'Regressor__min_child_weight': [1, 5, 10],
+            'Regressor__subsample': [0.65],
+            'Regressor__colsample_bytree': [0.7, 1]
+        }
+                
+            }
+
+
 

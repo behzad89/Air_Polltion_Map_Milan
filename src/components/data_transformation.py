@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from feature_engine.datetime import DatetimeFeatures
 from feature_engine.creation import CyclicalFeatures
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import StandardScaler
 from feature_engine.wrappers import SklearnTransformerWrapper
 from feature_engine.selection import DropFeatures
 from sklearn.pipeline import Pipeline
@@ -28,7 +28,7 @@ class DataTransformation():
     def get_data_transformer_object(self):
         try:
             DATE_FTS = cns.pollen[self.pollen_type]["features"][0]
-            NUM_FTS = cns.pollen[self.pollen_type]["features"][3:]
+            NUM_FTS = cns.pollen[self.pollen_type]["features"][3:] + cns.pollen[self.pollen_type]["stats"]
             processor = Pipeline(steps=[
                         ("dtfs", DatetimeFeatures(
                                 variables=DATE_FTS,
@@ -37,10 +37,10 @@ class DataTransformation():
                         ('cyclical', CyclicalFeatures(
                                 variables=["datetime_quarter", "datetime_week", "datetime_month", "datetime_day_of_year"],
                                 drop_original = True)),
-                        ("scaler", SklearnTransformerWrapper(MinMaxScaler(), variables = NUM_FTS)),
+                        ("scaler", SklearnTransformerWrapper(StandardScaler(), variables = NUM_FTS)),
                         ("dropExtraClms", DropFeatures(features_to_drop=cns.column_to_drop))
                 ])
-
+# TODO: Drop should be removed
             return processor
         
         except Exception as e:

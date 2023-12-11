@@ -52,5 +52,5 @@ if __name__ == "__main__":
 
      data_transformation = DataTransformation("birch")
      a,b,c = data_transformation.data_treansformation(train_data,test_data)
-     print(a.shape)
+     print(a.head())
 
